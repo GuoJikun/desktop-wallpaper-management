@@ -29,5 +29,5 @@ coverage
 
 *.tsbuildinfo
 
-#tauri
-/src-tauri/target/
+# Added by cargo
+/target
