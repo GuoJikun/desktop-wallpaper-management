@@ -7,6 +7,7 @@ use tauri_plugin_store::StoreExt;
 
 mod command;
 use command::{remove_wallpaper, set_wallpaper};
+mod tray;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -48,6 +49,8 @@ pub fn run() {
                     log::warn!("无法检查自启动状态时，默认启用自启动");
                 }
             }
+            // 创建托盘
+            tray::create_tray(app)?;
 
             Ok(())
         })
