@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
 import { Setting } from '@element-plus/icons-vue'
+import DataSource from './components/data-source.vue'
+import DataFilter from '@/components/data-filter.vue'
 
-const handleCommand = (command: string) => {
+type Command = 'source'
+const handleCommand = (command: Command) => {
     console.log(command)
+    if (command === 'source') {
+        openDataSourceDialog()
+    }
+}
+
+const dataSourceRef = useTemplateRef('dataSourceRef')
+const openDataSourceDialog = () => {
+    dataSourceRef.value?.open()
 }
 </script>
 
@@ -21,9 +33,12 @@ const handleCommand = (command: string) => {
                 </template>
             </el-dropdown>
         </div>
-        <div class="store-aside"></div>
+        <div class="store-aside">
+            <DataFilter />
+        </div>
         <div class="store-content"></div>
     </div>
+    <DataSource ref="dataSourceRef" />
 </template>
 
 <style lang="scss" scoped>
@@ -47,10 +62,12 @@ const handleCommand = (command: string) => {
     &-aside{
         grid-area: aside;
         background-color: beige;
+        padding: 0.8rem 2rem;
     }
     &-content{
         grid-area: content;
         background-color: aliceblue;
+        padding: 2rem;
     }
 
     &-setting {
